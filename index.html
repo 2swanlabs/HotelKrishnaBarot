@@ -132,8 +132,8 @@ nav.solid{height:60px;box-shadow:0 2px 24px rgba(0,0,0,.35);}
   color:var(--gold);
 }
 
-/* 2-col below banner: balcony image left, info right */
-.room-duo{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid var(--rule);border-top:none;}
+/* 2-col 50:50 below header: slider left, info right */
+.room-duo{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule);min-height:522px;}
 
 .room-duo-img{position:relative;overflow:hidden;min-height:460px;}
 .room-duo-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .7s ease;}
@@ -145,11 +145,12 @@ nav.solid{height:60px;box-shadow:0 2px 24px rgba(0,0,0,.35);}
   letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.8);
 }
 
-.room-duo-info{
-  padding:48px 44px;
-  display:flex;flex-direction:column;justify-content:space-between;
-  background:#fff;border-left:1px solid var(--rule);
-}
+/* Slider fills the left column fully */
+.room-duo-info{padding:44px 40px;display:flex;flex-direction:column;justify-content:space-between;background:#fff;border-left:1px solid var(--rule);}
+.room-slider-wrap{position:relative;overflow:hidden;height:100%;min-height:414px;}
+.room-slider{display:flex;height:100%;transition:transform .5s cubic-bezier(.25,.46,.45,.94);}
+.room-slide{min-width:100%;height:100%;position:relative;cursor:pointer;}
+.room-slide img{width:100%;height:100%;object-fit:cover;display:block;}
 .room-duo-desc{
   font-family:'Raleway',sans-serif;font-size:13.5px;font-weight:300;
   line-height:1.9;color:var(--muted);margin-bottom:28px;
@@ -206,23 +207,40 @@ nav.solid{height:60px;box-shadow:0 2px 24px rgba(0,0,0,.35);}
 .gal-head .sec-title{color:rgba(255,255,255,.85);}
 .gal-head .sec-label{color:var(--gold);}
 .gal-hint{font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:rgba(255,255,255,.28);}
-.gal-grid{display:grid;padding:0 48px;gap:3px;grid-template-columns:repeat(12,1fr);grid-template-rows:240px 240px 240px;}
+.gal-grid{display:grid;padding:0 48px;gap:3px;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;}
 .gc{position:relative;overflow:hidden;cursor:pointer;}
-.gc img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.72) saturate(.8);transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .6s;}
-.gc:hover img{transform:scale(1.1);filter:brightness(.95) saturate(1.1);}
+.gc img,.gc video{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.72) saturate(.8);transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .6s;}
+.gc:hover img,.gc:hover video{transform:scale(1.1);filter:brightness(.95) saturate(1.1);}
 .gc-dim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);opacity:0;transition:opacity .4s;}
 .gc:hover .gc-dim{opacity:1;}
-.gc-name{position:absolute;bottom:14px;left:14px;font-family:'Raleway',sans-serif;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.88);opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;}
+.gc-name{position:absolute;bottom:14px;left:14px;right:14px;font-family:'Raleway',sans-serif;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.88);opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;}
 .gc:hover .gc-name{opacity:1;transform:translateY(0);}
-.gc-a{grid-column:1/5;grid-row:1/3;}
-.gc-b{grid-column:5/8;grid-row:1/2;}
-.gc-c{grid-column:8/13;grid-row:1/2;}
-.gc-d{grid-column:5/9;grid-row:2/3;}
-.gc-e{grid-column:9/13;grid-row:2/3;}
-.gc-f{grid-column:1/5;grid-row:3/4;}
-.gc-g{grid-column:5/9;grid-row:3/4;}
-.gc-h{grid-column:9/13;grid-row:3/4;}
+.gc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(184,146,58,.85);display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .gal-foot{padding:26px 48px;border-top:1px solid rgba(255,255,255,.06);font-family:'Raleway',sans-serif;font-size:9px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:3px;}
+
+/* LIGHTBOX */
+.lb-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;}
+.lb-overlay.open{opacity:1;visibility:visible;}
+.lb-overlay img,.lb-overlay video{max-width:90vw;max-height:85vh;object-fit:contain;display:block;border:1px solid rgba(255,255,255,.08);}
+.lb-close{position:absolute;top:20px;right:24px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .25s,background .25s;line-height:1;font-family:sans-serif;}
+.lb-close:hover{border-color:var(--gold);background:rgba(184,146,58,.15);color:var(--gold);}
+
+/* ROOM SLIDER */
+.room-slider-wrap{position:relative;overflow:hidden;background:var(--deep);}
+.room-slider{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);}
+.room-slide{min-width:100%;position:relative;height:620px;cursor:pointer;}
+.room-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 10s ease;}
+.room-slide:hover img{transform:scale(1.04);}
+.room-slide-bar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:52px;background:rgba(10,18,10,.72);backdrop-filter:blur(6px);}
+.room-slide-title{font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:rgba(255,255,255,.88);letter-spacing:.08em;font-style:italic;}
+.room-slide-badge{font-family:'Raleway',sans-serif;font-size:8px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);}
+.room-slider-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:46px;height:46px;border-radius:50%;background:rgba(10,18,10,.6);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s,border-color .25s;backdrop-filter:blur(4px);}
+.room-slider-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--forest);}
+.room-slider-btn.prev{left:16px;}
+.room-slider-btn.next{right:16px;}
+.room-slider-dots{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10;}
+.rs-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .25s,transform .25s;}
+.rs-dot.active{background:var(--gold);transform:scale(1.3);}
 
 /* BOOKING */
 .bk{background:var(--deep);padding:108px 0;position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);}
@@ -306,13 +324,9 @@ footer{background:var(--deep);}
   .rooms{padding:72px 0;}
   .rooms-head-inner{grid-template-columns:1fr;gap:16px;padding-bottom:32px;margin-bottom:0;}
   .rooms-head-inner .sec-body{text-align:left;}
-  .room-banner{height:52vw;min-height:200px;}
-  .room-banner-bar{padding:0 18px;height:44px;}
-  .room-banner-title{font-size:14px;}
-  .room-banner-badge{display:none;}
-  .room-duo{grid-template-columns:1fr;}
-  .room-duo-img{min-height:260px;order:2;}
-  .room-duo-info{border-left:none;border-top:1px solid var(--rule);padding:30px 22px;order:1;}
+  .room-duo{grid-template-columns:1fr;min-height:auto;}
+  .room-slider-wrap{min-height:72vw;}
+  .room-duo-info{border-left:none;border-top:1px solid var(--rule);padding:30px 22px;}
   .room-hls{grid-template-columns:1fr 1fr;}
 
   /* Valley */
@@ -324,10 +338,16 @@ footer{background:var(--deep);}
   .dining-in{grid-template-columns:1fr;gap:44px;}
 
   /* Gallery */
-  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 22px;}
-  .gc-a,.gc-b,.gc-c,.gc-d,.gc-e,.gc-f,.gc-g,.gc-h{grid-column:auto;grid-row:auto;height:180px;}
+  .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px;padding:0 22px;}
   .gal-head{padding:0 22px 32px;flex-direction:column;align-items:flex-start;gap:8px;}
   .gal-foot{padding:18px 22px;}
+
+  /* Room slider mobile */
+  .room-slide-bar{padding:0 18px;height:44px;}
+  .room-slide-title{font-size:14px;}
+  .room-slide-badge{display:none;}
+  .room-slider-btn{width:36px;height:36px;font-size:16px;}
+  .room-slider-dots{bottom:52px;}
 
   /* Find */
   .find{padding:72px 0;}
@@ -485,25 +505,26 @@ footer{background:var(--deep);}
     </div>
   </div>
 
-  <!-- Full-width landscape room photo -->
-  <div class="wrap">
-    <div class="room-banner sr">
-      <img src="room2.webp" alt="Hotel room interior">
-      <div class="room-banner-bar">
-        <span class="room-banner-title">Your Private Mountain Retreat</span>
-        <span class="room-banner-badge">Deluxe Room &nbsp;&middot;&nbsp; Hotel Krishna</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2-col: balcony image left, info right -->
+  <!-- 50:50 grid: slider left, info right -->
   <div class="wrap">
     <div class="room-duo sr">
 
-      <!-- Left: Balcony image -->
-      <div class="room-duo-img">
-        <img src="balcony.webp" alt="River-view balcony">
-        <div class="room-duo-img-cap">Private Balcony &nbsp;&middot;&nbsp; River View</div>
+      <!-- Left: Room Image Slider -->
+      <div class="room-duo-img" style="overflow:hidden;padding:0;">
+        <div class="room-slider-wrap" id="roomSliderWrap" style="height:100%;border-radius:0;">
+          <div class="room-slider" id="roomSlider">
+            <div class="room-slide" onclick="openLb(roomSlides[roomIdx].src,'img')">
+              <img src="room1.webp" alt="Deluxe Room" id="rSlideImg">
+              <div class="room-slide-bar">
+                <span class="room-slide-title" id="rSlideTitle">Your Private Mountain Retreat</span>
+                <span class="room-slide-badge" id="rSlideBadge">Deluxe Room &nbsp;&middot;&nbsp; Hotel Krishna</span>
+              </div>
+            </div>
+          </div>
+          <button class="room-slider-btn prev" onclick="slideRoom(-1)" aria-label="Previous">&#8249;</button>
+          <button class="room-slider-btn next" onclick="slideRoom(1)" aria-label="Next">&#8250;</button>
+          <div class="room-slider-dots" id="rDots"></div>
+        </div>
       </div>
 
       <!-- Right: Info panel -->
@@ -602,20 +623,34 @@ footer{background:var(--deep);}
 <section class="gallery" id="gallery">
   <div class="gal-head sr">
     <div><span class="sec-label">Gallery</span><h2 class="sec-title">Barot Valley <i>&amp; Beyond</i></h2></div>
-    <span class="gal-hint">Hover to reveal</span>
+    <span class="gal-hint">Click to view</span>
   </div>
   <div class="gal-grid">
-    <div class="gc gc-a"><img src="hero2.webp" alt="Summer Valley"><div class="gc-dim"></div><div class="gc-name">Emerald Summer Valley</div></div>
-    <div class="gc gc-b"><img src="room2.webp" alt="Hotel Room"><div class="gc-dim"></div><div class="gc-name">Deluxe Room</div></div>
-    <div class="gc gc-c"><img src="balcony.webp" alt="Balcony"><div class="gc-dim"></div><div class="gc-name">River-View Balcony</div></div>
-    <div class="gc gc-d"><img src="restaurant.webp" alt="Restaurant"><div class="gc-dim"></div><div class="gc-name">The Restaurant</div></div>
-    <div class="gc gc-e"><img src="food.webp" alt="Food"><div class="gc-dim"></div><div class="gc-name">Local Cuisine</div></div>
-    <div class="gc gc-f"><img src="hero.webp" alt="Winter"><div class="gc-dim"></div><div class="gc-name">Winter Wonderland</div></div>
-    <div class="gc gc-g"><img src="scenic.webp" alt="Scenic"><div class="gc-dim"></div><div class="gc-name">Valley Panorama</div></div>
-    <div class="gc gc-h"><img src="breakfast.webp" alt="Breakfast"><div class="gc-dim"></div><div class="gc-name">Morning Chai with a View</div></div>
+    <div class="gc" onclick="openLb('hotel_entrance.webp','img')"><img src="hotel_entrance.webp" alt="Hotel Entrance"><div class="gc-dim"></div><div class="gc-name">Hotel Entrance</div></div>
+    <div class="gc" onclick="openLb('hero2.webp','img')"><img src="hero2.webp" alt="Summer Valley"><div class="gc-dim"></div><div class="gc-name">Emerald Summer Valley</div></div>
+    <div class="gc" onclick="openLb('room1.webp','img')"><img src="room1.webp" alt="Deluxe Room"><div class="gc-dim"></div><div class="gc-name">Deluxe Room</div></div>
+    <div class="gc" onclick="openLb('room2.webp','img')"><img src="room2.webp" alt="Room Interior"><div class="gc-dim"></div><div class="gc-name">Room Interior</div></div>
+    <div class="gc" onclick="openLb('room3.webp','img')"><img src="room3.webp" alt="Room"><div class="gc-dim"></div><div class="gc-name">Cozy Room</div></div>
+    <div class="gc" onclick="openLb('room4.webp','img')"><img src="room4.webp" alt="Room View"><div class="gc-dim"></div><div class="gc-name">Warm &amp; Elegant Room</div></div>
+    <div class="gc" onclick="openLb('balcony2.webp','img')"><img src="balcony2.webp" alt="Balcony View"><div class="gc-dim"></div><div class="gc-name">River-View Balcony</div></div>
+    <div class="gc" onclick="openLb('balcony.webp','img')"><img src="balcony.webp" alt="Balcony"><div class="gc-dim"></div><div class="gc-name">Private Balcony</div></div>
+    <div class="gc" onclick="openLb('outside_sitting1.webp','img')"><img src="outside_sitting1.webp" alt="Outdoor Seating Night"><div class="gc-dim"></div><div class="gc-name">Outdoor Dining by Night</div></div>
+    <div class="gc" onclick="openLb('outside_sitting2.webp','img')"><img src="outside_sitting2.webp" alt="Outdoor Dining"><div class="gc-dim"></div><div class="gc-name">Valley-View Restaurant</div></div>
+    <div class="gc" onclick="openLb('restaurant.webp','img')"><img src="restaurant.webp" alt="Restaurant"><div class="gc-dim"></div><div class="gc-name">The Restaurant</div></div>
+    <div class="gc" onclick="openLb('food.webp','img')"><img src="food.webp" alt="Food"><div class="gc-dim"></div><div class="gc-name">Local Cuisine</div></div>
+    <div class="gc" onclick="openLb('hero.webp','img')"><img src="hero.webp" alt="Winter"><div class="gc-dim"></div><div class="gc-name">Winter Wonderland</div></div>
+    <div class="gc" onclick="openLb('scenic.webp','img')"><img src="scenic.webp" alt="Scenic"><div class="gc-dim"></div><div class="gc-name">Valley Panorama</div></div>
+    <div class="gc" onclick="openLb('breakfast.webp','img')"><img src="breakfast.webp" alt="Breakfast"><div class="gc-dim"></div><div class="gc-name">Morning Chai with a View</div></div>
+    <div class="gc" onclick="openLb('video.mp4','video')"><video src="video.mp4" muted loop playsinline autoplay></video><div class="gc-dim"></div><div class="gc-name">Hotel Krishna — Experience</div><div class="gc-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></div></div>
   </div>
   <div class="gal-foot">Hotel Krishna &nbsp;&middot;&nbsp; Barot Valley, Himachal Pradesh</div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay" onclick="closeLb(event)">
+  <div class="lb-close" onclick="closeLbDirect()">&#215;</div>
+  <div id="lbContent"></div>
+</div>
 
 <!-- BOOKING -->
 <section class="bk" id="book">
@@ -739,6 +774,71 @@ footer{background:var(--deep);}
   drw.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.07,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.sr').forEach(function(el){io.observe(el);});
+
+  // LIGHTBOX
+  function openLb(src,type){
+    var ov=document.getElementById('lbOverlay');
+    var ct=document.getElementById('lbContent');
+    ct.innerHTML='';
+    if(type==='video'){
+      var v=document.createElement('video');
+      v.src=src;v.controls=true;v.autoplay=true;v.style.maxWidth='90vw';v.style.maxHeight='85vh';
+      ct.appendChild(v);
+    } else {
+      var i=document.createElement('img');
+      i.src=src;ct.appendChild(i);
+    }
+    ov.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  window.openLb=openLb;
+  function closeLb(e){if(e.target===document.getElementById('lbOverlay'))closeLbDirect();}
+  function closeLbDirect(){
+    var ov=document.getElementById('lbOverlay');
+    ov.classList.remove('open');
+    document.body.style.overflow='';
+    var v=ov.querySelector('video');if(v)v.pause();
+  }
+  window.closeLb=closeLb;window.closeLbDirect=closeLbDirect;
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLbDirect();});
+
+  // ROOM SLIDER
+  var roomSlides=[
+    {src:'room1.webp',title:'Your Private Mountain Retreat',badge:'Deluxe Room · Hotel Krishna'},
+    {src:'room3.webp',title:'Warm Wood & Himalayan Comfort',badge:'Deluxe Room · Hotel Krishna'},
+    {src:'room4.webp',title:'Spacious & Elegantly Appointed',badge:'Deluxe Room · Hotel Krishna'},
+    {src:'room2.webp',title:'Luxury Meets Mountain Living',badge:'Deluxe Room · Hotel Krishna'},
+    {src:'balcony2.webp',title:'River-View Private Balcony',badge:'Balcony · Hotel Krishna'},
+  ];
+  window.roomSlides=roomSlides;
+  var roomIdx=0;
+  window.roomIdx=0;
+  var dotsEl=document.getElementById('rDots');
+  if(dotsEl){
+    roomSlides.forEach(function(_,i){
+      var d=document.createElement('div');
+      d.className='rs-dot'+(i===0?' active':'');
+      d.onclick=function(){goRoom(i);};
+      dotsEl.appendChild(d);
+    });
+  }
+  function goRoom(idx){
+    roomIdx=idx;window.roomIdx=idx;
+    var img=document.getElementById('rSlideImg');
+    var title=document.getElementById('rSlideTitle');
+    var badge=document.getElementById('rSlideBadge');
+    if(img)img.src=roomSlides[idx].src;
+    if(title)title.textContent=roomSlides[idx].title;
+    if(badge)badge.textContent=roomSlides[idx].badge;
+    document.querySelectorAll('.rs-dot').forEach(function(d,i){d.classList.toggle('active',i===idx);});
+  }
+  function slideRoom(dir){
+    var next=(roomIdx+dir+roomSlides.length)%roomSlides.length;
+    goRoom(next);
+  }
+  window.slideRoom=slideRoom;
+  // Auto-advance every 4 seconds
+  setInterval(function(){slideRoom(1);},4000);
 })();
 </script>
 </body>
